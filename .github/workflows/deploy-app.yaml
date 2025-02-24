@@ -1,0 +1,59 @@
+# Name of my action
+name: Deploy app
+
+## when we run this action
+on: 
+
+  # we run this on push
+  push:
+    branches:
+      - main
+        master
+
+  # we run this action on pull request
+  pill_request:
+    branches:
+      - main
+        master
+
+  # we can run this manually with workflow dispatch
+  workflow_dispatch:
+
+# we grant permitions to write
+  permissions:
+    contents: write
+
+# the jobs that will be executed
+
+jobs:
+  run-deploy-app:
+    run-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # Setup nodejs
+      - name: Setup Nodejs 18.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: "18.x"
+
+      # we install all our packages before build
+      - name: Setup dependencies
+        run: npm install --frozen-lockfile
+
+      # we build the project
+      - name: Building project
+        run: npm run build
+
+      # we check files 
+      - name: check files
+        run: ls -all
+
+      # we deploy the asset
+      - name: Deploy to Github Pages
+        uses: peaceiris/actions-gh-pages@v3
+          with:
+            github_token: ${{ scretes.GITHUB_TOKEN }}
+            publish_dir: ./dist
+
