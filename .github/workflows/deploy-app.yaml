@@ -11,7 +11,7 @@ on:
         master
 
   # we run this action on pull request
-  pill_request:
+  pull_request:
     branches:
       - main
         master
@@ -20,14 +20,14 @@ on:
   workflow_dispatch:
 
 # we grant permitions to write
-  permissions:
-    contents: write
+permissions:
+  contents: write
 
 # the jobs that will be executed
 
 jobs:
   run-deploy-app:
-    run-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
