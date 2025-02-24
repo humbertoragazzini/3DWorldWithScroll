@@ -48,12 +48,12 @@ jobs:
 
       # we check files 
       - name: check files
-        run: ls -all
+        run: ls -al
 
       # we deploy the asset
       - name: Deploy to Github Pages
         uses: peaceiris/actions-gh-pages@v3
-          with:
-            github_token: ${{ secrets.GITHUB_TOKEN }}
-            publish_dir: ./dist
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
 
